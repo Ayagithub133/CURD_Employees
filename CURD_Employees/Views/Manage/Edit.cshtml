@@ -1,0 +1,107 @@
+﻿@model  CURD_Employees.Models.Employee
+  
+<div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+           
+            @using (Html.BeginForm("Edit", "Manage", new { action = "Edit", controller = "Manage" }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+            {
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit Employee</h4>
+
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" class="form-control" required name="FirstName" value="@Model.FirstName">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" class="form-control" required name="LastName" value="@Model.LastName">
+                    </div>
+                    <div class="form-group">
+                        <label>Salary</label>
+                        <input type="text" class="form-control" required name="Salary" value="@Model.Salary">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="Email" class="form-control" required name="Email" value="@Model.Email">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" class="form-control" required name="Address" value="@Model.Address">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="text" class="form-control" required name="Phone" value="@Model.Phone">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Employee Image</label>
+                        <input type="file" class="form-control" required name="upload" value="@Model.Image">
+                    </div>
+
+                    <div class="form-group">
+                        
+                        <input type="text" class="form-control"  name="EmpId" value="@Model.EmpId" hidden>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Job Title</label>
+                        <select name="JobTitle" class="form-control">
+
+                            @if (Model.JobTitle == "BACKEND")
+                            {
+                            <option value="BACKEND" selected>Backend</option>
+                            <option value="FRONTEND">FrontEnd</option>
+                            }
+                            else
+                            {
+                                <option value="BACKEND">Backend</option>
+                                <option value="FRONTEND" selected>FrontEnd</option>
+                            }
+                        </select>
+
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select name="Active" class="form-control">
+                           
+                            @if (Model.Active == true)
+                            {
+                                
+                                <option value="true" selected>Active</option>
+                                <option value="false" >Not Active</option>
+                            }
+                            else
+                            {
+                                <option value="true">Active</option>
+                                <option value="false" selected >Not Active</option>
+                            }
+                        </select>
+
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    @*<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">*@
+                    @*<a href="~/Views/Manage/Index.cshtml" class="btn btn-dark" ><span>Cancel</span></a>*@
+                        @Html.ActionLink("Cancel", "Index" , new { action="Index" , controller = "Manage" }, new {@class="btn btn-dark" })
+                        <input type="submit" class="btn btn-success" value="Edit">
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+
+

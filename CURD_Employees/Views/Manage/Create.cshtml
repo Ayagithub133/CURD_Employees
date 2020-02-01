@@ -1,0 +1,73 @@
+﻿<div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @{ var k = 0; }
+           @using (Html.BeginForm("Create", "Manage", new { action = "Create", controller = "Manage" }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+           {
+             
+                    <div class="modal-header">
+                    <h4 class="modal-title">Add Employee</h4>
+                    
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" class="form-control" required name="FirstName">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" class="form-control" required name="LastName">
+                    </div>
+                    <div class="form-group">
+                        <label>Salary</label>
+                        <input type="text" class="form-control" required name="Salary">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" class="form-control" required name="Email">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" class="form-control" required name="Address">
+                    </div>
+
+                    
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="text" class="form-control" required name="Phone">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Employee Image</label>
+                        <input type="file" class="form-control" required name="upload">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Job Title</label>
+                        <select name="JobTitle" class="form-control">
+                          
+
+                               <option value="BACKEND">Backend</option>
+                               <option value="FRONTEND">FrontEnd</option>
+                           
+                        </select>
+                       
+                        
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    @Html.ActionLink("Cancel", "Index",new { action = "Index", controller = "Manage" },new { @class = "btn btn-default" })
+                    
+                    <input type="submit" class="btn btn-success" value="Add">
+                </div>
+           }
+        </div>
+    </div>
+</div>
+
+
+

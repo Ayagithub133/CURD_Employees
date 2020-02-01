@@ -1,0 +1,162 @@
+﻿@model  IEnumerable<CURD_Employees.Models.Employee>
+    @{var ID = 0;
+   }
+<div class="container">
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2>Manage <b>Employees</b></h2>
+                </div>
+                <div class="col-sm-6">
+                    
+                    @Html.ActionLink("Add New Employee","Create",new { action = "Create", controller = "Manage" },new {@class="btn btn-success"  })
+                    <a href="#deleteAllEmployees" class="btn btn-danger" data-toggle="modal"><span>Delete</span></a>
+                </div>
+            </div>
+        </div>
+        @using (Html.BeginForm("Index", "Manage", new { action = "Index", controller = "Manage" }, FormMethod.Get))
+        {
+            <div class="form-group">
+                
+                <input type="search" class="form-control"  style="width:300px" name="searchvalue" placeholder="Search By Name...">
+            </div>
+         <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>
+                       
+                        Active
+                    </th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>Phone</th>
+                    <th>Salary</th>
+                    <th>Job Title</th>
+                    <th>Image</th>
+                    
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    ID = item.EmpId;
+                <tr>
+                    <td>
+                        <span>
+                            @if (item.Active)
+                            {
+                                <input type="checkbox" checked disabled>
+                            }
+                            else
+                            {
+                                <input type="checkbox" disabled>
+                            }
+                        </span>
+                    </td>
+                    <td>@item.FirstName @item.LastName</td>
+                    <td>@item.Email</td>
+                    <td>@item.Address</td>
+                    <td>@item.Phone</td>
+                    <td>@item.Salary</td>
+                    <td>
+                        @item.JobTitle
+                    </td>
+                    <td><img src="~/Upload/@item.Image" style="width:60px;height:60px ; position:relative;margin:auto" /></td>
+                    
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { action = "Edit", controller = "Manage", id = item.EmpId }, new { @class = "edit" })
+                        @*<a href="Edit.html" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>*@
+                        <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"> Delete </a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="clearfix">
+           
+             <div class="hint-text">Showing <b> @TempData["show"]</b> entries</div>
+            
+            <ul class="pagination">
+                @*<li class="page-item "><a  href="javascript:Prev()" name="pagenum">Previous</a></li>*@
+               @for (var i = 1; i <= Convert.ToInt32(TempData["count"]); i++)
+               {
+                  
+                <li class="page-item btn-dark" style="margin:1px;"><a href="javascript:NumPage(@i)" name="pagenum" style="color:white; font-size:20px" >@i</a></li>
+               }
+             </ul>
+           
+            <input type="hidden" id="hidd" name="pagenum" />
+            
+        </div>
+        }
+    </div>
+</div>
+
+<div id="deleteEmployeeModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+           @using (Html.BeginForm("Delete", "Manage", new { action = "Delete", controller = "Manage" }, FormMethod.Post))
+           {
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete Employee</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete these Records?</p>
+                    <p class="text-warning"><small>This action cannot be undone.</small></p>
+                </div>
+                <div class="modal-footer">
+                    <input type="text" value="@ID" hidden name="id" />
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <input type="submit" class="btn btn-danger" value="Delete">
+                </div>
+           }
+        </div>
+    </div>
+</div>
+@*---------------------------------------------------------*@
+<div id="deleteAllEmployees" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @using (Html.BeginForm("DeleteAll", "Manage", new { action = "DeleteAll", controller = "Manage" }, FormMethod.Post))
+            {
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete All Employees</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete these Records?</p>
+                    <p class="text-warning"><small>This action cannot be undone.</small></p>
+                </div>
+                <div class="modal-footer">
+                    
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <input type="submit" class="btn btn-danger" value="Delete">
+                    
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    
+      
+   
+
+    function NumPage(index)
+       {
+      
+            document.getElementById('hidd').value = index;
+            document.forms[0].submit();
+        
+        
+
+    }
+
+
+</script>
